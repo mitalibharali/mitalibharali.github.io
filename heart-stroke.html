@@ -1,0 +1,208 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Pyspark GCP - Mitali Bharali Portfolio</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<a href="index.html" class="logo">Mitali Bharali</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+                            <li><a href="index.html">Me and My Projects</a></li>
+                            <li><a href="dashboards.html">Analytical Dashboards</a></li>
+							<li><a href="hobbies.html">Additional Interests</a></li>
+							<li><a href="elements.html">Work Together? - Resume</a></li>
+						</ul>
+						<ul class="icons">
+							<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<header class="major">
+									<!--<span class="date">April 25, 2017</span> -->
+									<h1>Pyspark in Google Cloud Platform<br />
+									</h1>
+									<p>MLlib PySpark Algorithm on DataProc of Google Cloud Platform
+                                        Having completed my data science internship working on AWS environment, I was intrigued by the cloud
+                                        services and its disrupting capabilities on Machine Learning. While the existing counterparts are pretty much
+                                        scalable and widely used, Google Cloud Platform is the newest kid in the block and has increasingly become
+                                        the first choice for cloud services and ML applications on cloud.</p>
+                                    </header>
+                                        <h3>Introduction</h3>
+                                        <p>This project is an implementation of PySpark' s MLlib application over GCP’s DataProc Platform. It briefly
+                                        illustrates ML cycle from creating clusters to deploying the ML algorithm. The dataset used is a healthcare
+                                        dataset as describe in the picture, where we aim to predict if the person had a stroke or not.
+                                        <a href="#" class="image fit"><img src="images/s1.png" alt="" /></a>
+                                        There are null values for BMI, smoking status and gender which are treated separately mentioned later.
+                                        Necessary encoding and mapping of categorical values are done, mentioned as well later.</p> 
+                                        <h3>Google Cloud Platform - DataProc</h3>
+                                        <p>GCP has various tools and compute engines like Dataflow, AutoML etc. that one can leverage from depending
+                                        upon their project requirement and complexities. For this project, I have used DataProc. DataProc is a fastscalable
+                                        cloud service to run Apache Spark and Hadoop through GCP. With built-in integration with Cloud
+                                        Storage, it allows autoscaling, resizing clusters, developer tools and several optional components (open source)
+                                        related to Hadoop and Apache Spark ecosystem.
+                                        The steps to set up environment in GCP would be majorly the 3 below:
+                                        1) Create VM clusters with VM instances
+                                        2) Create Firewall Rule
+                                        3) Set up External IP Address
+                                        <h4>VM Instance in a Cluster</h4>
+                                        For this project I build one master node that requests the recourses for the cluster to make them available for the
+                                        spark driver and 2 worker nodes. Specification of which can be chosen as per requirement, mine as described in
+                                        the picture below. Instantiate the SSH of the worker node and run Pyspark to set the version to 3.6 of python
+                                        and spark version more than 2.2.
+                                        <a href="#" class="image fit"><img src="images/s2.png" style="width:500px; height:500px;" alt="" /></a>
+                                        <a href="#" class="image fit"><img src="images/s3.png" alt="" /></a>
+                                        <h4>Firewall Rule and External IP Address</h4>
+                                        Over the VM instance, I set the Firewall rule as test, with port as 8888 and source IP address as 0.0.0.0, which is
+                                        later used to instantiate the jupyter notebook on the web. Later, from the External IP address tab, note the IP
+                                        address of the master node, which is used to open the jupyter notebook on web.
+                                        <a href="#" class="image fit"><img src="images/s4.png" alt="" /></a>
+                                        <h4>Bucket</h4>
+                                        Just like as in AWS, we
+                                        must use the storage tab to
+                                        create a bucket and upload
+                                        necessary files to be used in
+                                        the project. This is where
+                                        you can also define pricing
+                                        rules where you can allocate
+                                        pricing for every download
+                                        of the files or let the clients who use the file pay for the project rather than the developer.
+                                        <a href="#" class="image fit"><img src="images/s5.png" alt="" /></a>
+                                        Once done, you can open
+                                        the Jupyter file from the
+                                        web browser and start off
+                                        with the project.</p>
+                                        <h3>Pyspark in Jupyter</h3>
+                                        Following packages were used in my project
+                                        <a href="#" class="image fit"><img src="images/s6.png" alt="" /></a>
+                                        Instantiate a Spark Session
+                                        <a href="#" class="image fit"><img src="images/s7.png" alt="" /></a>
+                                        Here, we can read the file that we saved in the bucket of our GCP storage using databricks.spark.
+                                        Once done, I converted the spark dataframe into Pandas to support all operations.
+                                        Data Preprocessing
+                                        The two major steps here is the Imputation and Sampling.
+                                        Imputation with KNN and Multinomial Regression (without imputer library )
+                                        This is the key area of the project where I implemented functions and logic of my own.
+                                        I used ML supervised learning algorithms without library imputer function. I made a loop function to iterate
+                                        over every row with NaN values and replace/impute those values with the nearest neighbor value (knn= 3).
+                                        Similarly, for a categorical value, I used Label Encoder to convert into numeric and use a Logistic multinomial
+                                        regression to impute the NaN values.
+                                        Sampling the Imbalances
+                                        While there are several ways to perform sampling to overshadow the imbalances of a dataset, most effective
+                                        once for me is still weighted cost function in the regression.
+                                        However, for this project I wanted to implement and illustrate Smote Oversampling to sample and resampled a
+                                        highly imbalanced dataset, given our target variable is itself extremely imbalanced.
+                                        <a href="#" class="image fit"><img src="images/s8.png" alt="" /></a>
+                                        <h3>Building Spark ML Pipeline</h3>
+                                        I used Binarizer to build an assembler, which assembles all column together to predict the target variable and
+                                        produce one vector as feature.
+                                        <a href="#" class="image fit"><img src="images/s8.png" alt="" /></a>
+                                        <h3>Modelling</h3>
+                                        I kept the modelling pretty much simple since, imputation and sampling is supposed to cancel out any
+                                        anomalies of the dataset and I want to capture the true information of the treated dataset as is.
+                                        Using simple decision tree , we predict the target variable with accuracy metric of AUC of 0.99.
+                                        This high overfit could be due to the sampling
+                                        technique, however, given our recall is an important
+                                        metric, we would be more concerned with predicting
+                                        patients with strokes than the others which may justify
+                                        our choice of sampling even under overfit. This overfit
+                                        may predict the non-stroke people incorrectly which
+                                        we may still afford given the ones with stroke are all
+                                        correctly predicted.
+                                        Save the File
+                                        Finally, I saved the file and upload it in SSH. I used the library function PySPark2PMML.</p>
+								
+								<!-- <div class="image main"></div> -->
+								
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<section>
+							<form method="post" action="#">
+								<div class="fields">
+									<div class="field">
+										<label for="name">Name</label>
+										<input type="text" name="name" id="name" />
+									</div>
+									<div class="field">
+										<label for="email">Email</label>
+										<input type="text" name="email" id="email" />
+									</div>
+									<div class="field">
+										<label for="message">Message</label>
+										<textarea name="message" id="message" rows="3"></textarea>
+									</div>
+								</div>
+								<ul class="actions">
+									<li><input type="submit" value="Send Message" /></li>
+								</ul>
+							</form>
+						</section>
+						<section class="split contact">
+							<section class="alt">
+								<h3>Address</h3>
+								<p>Somewhere in Seattle</p>
+							</section>
+							
+							<section>
+								<h3>Email</h3>
+								<p><a href="#">mitali11bharali@gmail.com</a></p>
+							</section>
+							<section>
+								<h3>Social</h3>
+								<ul class="icons alt">
+									<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
+									<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
+									<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+									<li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+								</ul>
+							</section>
+						</section>
+					</footer>
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

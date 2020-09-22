@@ -1,0 +1,178 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Timeseries Forecasting - Portfolio</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<a href="index.html" class="logo">Mitali Bharali</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+                            <li><a href="index.html">Me and My Projects</a></li>
+                            <li><a href="dashboards.html">Analytical Dashboards</a></li>
+							<li><a href="hobbies.html">Additional Interests</a></li>
+							<li><a href="elements.html">Work Together? - Resume</a></li>
+						</ul>
+						<ul class="icons">
+							<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<!--<header class="major"> -->
+								<header>
+									<h2>Timeseries Forecasting - 
+									Traditional and Nueral Nets</h2>
+                                </header>
+								
+								
+								<p>Timeseries forecasting by far seems to be one of the most common Data Science tasks – especially in retails or financials institutions. Personally, I was introduced to it when I began my internship in a Private Equity firm, and since then it is of my great interest to explore beyond the traditional methodologies and extend to Machine Learning – Deep Learning treatments. There are researches of the same around ML engineers and practitioners, but below is my attempt to experiment with timeseries in an ML environment.
+                                </p>
+                                    <h3>DATASET</h3>
+                                    <p>
+                                    I would use data from Capital IQ or Prequin where we would try to estimate NAVs, VARs and Cashflows of any given fund. I am trying to replicate the same with an open-source data on Google Stock Prices (timeseries forecasting used more for Stock prices in general) where I worked on predicting only the Open column. There are two different datasets for Train and Test and the basic summary statistics of the two are as below:
+                                    <a href="#" class="image fit"><img src="images/t1.png" alt="" /></a>
+                                    TRAIN SET TEST SET
+                                    <h3>TRADITIONAL FORECASTING</h3>
+                                    I started with traditional timeseries methods namely – ARIMA and Unobserved Components Model. A timeseries can be recognized by the following components – Trend, Seasonality, Noise and the below helper functions can help. I have used the time with np.arange for the series plotting in x axis.
+                                    <a href="#" class="image fit"><img src="images/t2.png" style="width: 500px; height: 700px" alt="" /></a>
+                                    I further divided the data into train and dev, until 1000 for train and 1000 to 1258 (end of the dataset) for dev set. Plots of the same as below:
+                                    <a href="#" class="image fit"><img src="images/t3.png" alt="" /></a>
+                                    </p>
+                                    <h3>ARIMA</h3>
+                                    <p>
+                                    Arima has three parts Auto Regression (p), Integration (d) and Moving Average (q).
+                                    An Autocorrelation plot helps me identify the right (p) value for the model. From the below graph, a (p) value between 7 – 10 looks best.
+                                    <a href="#" class="image fit"><img src="images/t4.png" style="width: 600px; height: 500px" alt="" /></a>
+                                   
+                                    Clearly from the plots above, there is an upward trend, and we need to make it stationary with differencing. With trail and error, differencing method the actual dataset at time = 1000 gives us a stationary series.
+                                    <a href="#" class="image fit"><img src="images/t5.png" style="width: 1000px; height: 500px" alt="" /></a>
+                                    A general moving average with window size of 10 was implemented as below.
+                                    <a href="#" class="image fit"><img src="images/t6.png" style="width: 800px; height: 700px" alt="" /></a>
+                                  
+                                    For the differenced stationary series, I used the Partial Autocorrelation plot to figure out the (q) value, 2 as per the below:
+                                    <a href="#" class="image fit"><img src="images/t7.png" style="width: 500px; height: 700px" alt="" /></a>
+                                    With p,q,d the model from statsmodels.tsa.arima_model is fit to give the below evaluations of AIC and BIC
+                                    </p>
+                                    <a href="#" class="image fit"><img src="images/t8.png" style="width: 800px; height: 700px" alt="" /></a>
+                                    <h3>Unobserved Component Models</h3>
+                                    <p>
+                                    For the UCM, the below graphs depict the predicted against observed values entire training dataset.
+                                    <a href="#" class="image fit"><img src="images/t9.png" alt="" /></a>
+                                    </p>
+                                    <h3>NEURAL NETWORKS</h3>
+                                    <p>
+                                    A general neural network architecture starts with the input layer of the feature vectors of ֋ training examples, hidden layers and one output layers.
+                                    <a href="#" class="image fit"><img src="images/t10.png" style="width: 500px; height: 500px" alt="" /></a>
+                                    The input X matrix must be transformed into a nxm matrix, where n is the no of features and m is the no of training examples. In the given dataset, one column is augmented into a matrix of window size 60, thus making X matrix (60x1198) .
+                                    <a href="#" class="image fit"><img src="images/t11.png" style="width: 800px; height: 700px" alt="" /></a>
+                                    
+                                    The general methodology of neural network has the following steps:
+                                    i. Initialize Parameters: W, B
+                                    ii. Loop for Number of Iterations:
+                                    a. Forward Propagation
+                                    b. Cost Function
+                                    c. Backward Propagation
+                                    iii. Update Parameters
+                                    Activation Functions – Sigmoid, ReLu and tanh can be defined as well, but for numerical regression prediction, a linear activation is best suited.
+                                    <a href="#" class="image fit"><img src="images/t12.png" style="width: 1000px; height: 800px" alt="" /></a>
+                                    For a two layer model, after defining the loop for num_iterations:
+                                    <a href="#" class="image fit"><img src="images/t13.png" style="width: 1000px; height: 800px" alt="" /></a>
+                                    
+                                    The Learning rate curve for 2-layer and 4-layer model can be seen as below, with accuracy of 64, and 56 respectively for 2500 iterations.
+                                    <a href="#" class="image fit"><img src="images/t14.png" style="width: 1000px; height: 800px" alt="" /></a>
+                                    
+                                    
+                                    <h3> Deep Learning - LSTM </h3>
+                                    The LSTM is a category of Recurrent Neural Network which has an additional memory unit that is passed on to other cells in the loop iterations. LSTMs are by far the most widely used neural nets for timeseries forecasting. I used the Keras Sequential and dense models for the layers and dropout of 0.2 for regularization. With epoch of 100, the accuracy measured in Mean squared Error is up to 0.0013. The predicted values of test against the actual test values can be visualized as below:</p>
+                                    <a href="#" class="image fit"><img src="images/t15.png" style="width: 800px; height: 700px" alt="" /></a>
+                                    <a href="#" class="image fit"><img src="images/t16.png" style="width: 800px; height: 700px" alt="" /></a>
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<section>
+							<form method="post" action="#">
+								<div class="fields">
+									<div class="field">
+										<label for="name">Name</label>
+										<input type="text" name="name" id="name" />
+									</div>
+									<div class="field">
+										<label for="email">Email</label>
+										<input type="text" name="email" id="email" />
+									</div>
+									<div class="field">
+										<label for="message">Message</label>
+										<textarea name="message" id="message" rows="3"></textarea>
+									</div>
+								</div>
+								<ul class="actions">
+									<li><input type="submit" value="Send Message" /></li>
+								</ul>
+							</form>
+						</section>
+						<section class="split contact">
+							<section class="alt">
+								<h3>Address</h3>
+								<p>Somewhere in Seattle</p>
+							</section>
+							
+							<section>
+								<h3>Email</h3>
+								<p><a href="#">mitali11bharali@gmail.com</a></p>
+							</section>
+							<section>
+								<h3>Social</h3>
+								<ul class="icons alt">
+									<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
+									<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
+									<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+									<li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+								</ul>
+							</section>
+						</section>
+					</footer>
+
+				<!-- Copyright -->
+
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
