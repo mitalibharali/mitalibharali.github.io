@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Timeseries Forecasting - Portfolio</title>
+		<title>Chat Bot, Mitali Bharali - Portfolio</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -28,13 +28,11 @@
                             <li><a href="index.html">Me and My Projects</a></li>
                             <li><a href="dashboards.html">Analytical Dashboards</a></li>
 							<li><a href="hobbies.html">Additional Interests</a></li>
-							<li><a href="elements.html">Work Together? - Resume</a></li>
+							<li><a href="contact_resume.html">Work Together? - Resume</a></li>
 						</ul>
 						<ul class="icons">
-							<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-							<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-							<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-							<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+							<li><a href="https://twitter.com/mitalibharali" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="https://github.com/mitalibharali/chatbot" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
 						</ul>
 					</nav>
 
@@ -45,74 +43,123 @@
 							<section class="post">
 								<!--<header class="major"> -->
 								<header>
-									<h2>Timeseries Forecasting - 
-									Traditional and Nueral Nets</h2>
+									<h2>Conversational Chat Bot </h2>
                                 </header>
 								
-								
-								<p>Timeseries forecasting by far seems to be one of the most common Data Science tasks – especially in retails or financials institutions. Personally, I was introduced to it when I began my internship in a Private Equity firm, and since then it is of my great interest to explore beyond the traditional methodologies and extend to Machine Learning – Deep Learning treatments. There are researches of the same around ML engineers and practitioners, but below is my attempt to experiment with timeseries in an ML environment.
+								<p><h2>I. Introduction</h2>
+                                    The growth of Natural Language Processing is exponential in today’s time and its
+                                    implementation is being recognized in almost every industry. A recent study by the Kelsey
+                                    Group reports that increasing numbers of companies are investing in voice or speech
+                                    recognition and processing technologies at an alarming rate to save money by replacing
+                                    operators and to improve service to their customers. Reading text from prints, Speech
+                                    Recognition to Language Translation, and future adaptations not yet discerned. Given if we can
+                                    acquire the full potential of what NLP is capable of, it can snowball into technology of its own,
+                                    much like other engineering fields. In information retrieval sense, it would mean harnessing an
+                                    astronomical amount of data if exploited to full capacity and hence tuning all areas of technical
+                                    expertise.</p>
+                                    Tapping this area meant starting with the basics from preprocessing technics to vectorizing
+                                    words to apply similarity and making to basic conversation. This report illustrates these aspects
+                                    of NLP to create a conversational chatbot implemented through an GUI application.
+                                    <p> <h2>II. Dataset Description</h2>
+                                    There are three datasets used for this project:
+                                    i. Dialogue.tsv – that classifies non-technical, natural English dialogues.
+                                    ii. Stackoverflow.tsv – that classifies data into programming topic related questions, each of
+                                    which belong to one class of programming language.
+                                    iii. Starspace.tsv – that maps to the corresponding answers to questions, used in creating
+                                    word embeddings.
+                                    <a href="#" class="image fit"><img src="images/c2.png" alt="" /></a>
+                                    Fig1. Dialogue.tsv Fig2. Stackoverflow.tsv Fig3. Starspace.tsv
+                                    Each of these datasets has 3 millions observations, hence its recommended to use cloud
+                                    interface for data retrieval and modeling. There are no missing values in any of the dataset.
+                                    </p>                                    
+                                    <p><h>III. Architecture</h>
+                                    <a href="#" class="image fit"><img src="images/c3.png" alt="" /></a>
+                                    The code is broadly divided into two parts, one that has the utility functions Utils and the
+                                    other that has the Main Bot Handler  Dialogue Manager. Utils has text_prepare function
+                                    that preprocesses, td-idf_features that vectorizes and Question-to-Vec function that creates
+                                    embeddings, each called as required. The Main Bot has two broad categories – Intend
+                                    Recognizer that classifies the input question and, Threat Ranker that gets the best answer
+                                    for the question vector.</p>
+                                    <p><h2>IV. Natural Language Processing</h2>
+                                    <a href="#" class="image fit"><img src="images/c4.png" alt="" /></a>
+                                    <h3>i. Preprocessing</h3>
+                                    The preprocessing starts with basics of NLP. One function text_prepare is used to perform all
+                                    the below preprocessing:
+                                    3
+                                    MAIN BOT UTILS FUNCTION
+                                    INPUT
+                                    QUESTION
+                                    Intend
+                                    Recognizer TF-IDF
+                                    Dialogue
+                                    Technical
+                                    Query
+                                    Dialogue
+                                    Manager
+                                    Python C PHP QUEST
+                                    to VEC
+                                    Threat JAVA
+                                    Ranking
+                                    mxb180027
+                                    a) Lemmatization
+                                    b) Stemming
+                                    c) Stopwords removal
+                                    Lemmatization normally aims to remove inflectional endings only and to return the base or
+                                    dictionary form of a word, known as the lemma. While stemming often includes the removal of
+                                    derivational affixes. Stopwords would remove frequently used English auxiliary words which
+                                    contribute no specific meaning to the sentence, usually used for grammatical purpose – a, the,
+                                    an, or, so…</p>
+                                    <p><h3>ii. TF-IDF</h3>
+                                    This is another form of the preprocessing making it more readable, extracting features for the
+                                    machine learning algorithm to work on. Tfidf_features is made and once called; data is dumped
+                                    in the pickle to later use it in the bot.</p>
+                                    <p><h3>iii. Word Embeddings</h3>
+                                    A word embedding is a learned representation for text where words that have the same meaning
+                                    have a similar representation. The vectorized data is measured for proximity with similarity
+                                    function in the vector space which translates into the similarity in the meaning of the words in
+                                    textual language. This is used to train the bot to find the similarity between the question vectors
+                                    (Stackoverflow data) and the existing threat- most likely answers data (Starspace data). Cosine
+                                    similarity is used here. This helps in ranking model – where the most likely answer from the
+                                    given programming topic searched for the input question. The evaluation matric used here is
+                                    pariwise distance argmin.</p>
+                                    <p><h3>V. Machine Learning</h3>
+                                    There are majorly two machine learning used for training the dataset – Logistic Regression and
+                                    Multiclass OnevsRest. The logistic regression is used in the Indent Recognizer section to classify
+                                    the question vector into Dialogue or Technical Query. For this, a concatenated dataset of
+                                    Dialogues.tsv and Stackoverflow.tsv is used. Multiclass OnevsRest is used in labelling the tags
+                                    against the right query – Python tags to python-based queries and so on. A word embedding is
+                                    formed from starspace.tsv data that is used as answers to the question vectors, that is used in
+                                    Threat Ranker. The ideal approach to deciding the algorithm would be to start with simplest
+                                    models with least parameters and extend to advance deep learning models like RNN and LSTM.
+                                    While in this project, accuracy and performance of simple models were high, deep models would
+                                    have overfitted the dataset and performed poorly on new dataset.
+                                    </p>
+                                    <a href="#" class="image fit"><img src="images/c5.png" alt="" /></a>
+                                    <p<h3>VI. Output</h3>
+                                    The output of the algorithm looks as below. The main_bot function logic calls the dialogue
+                                    manager function against the input data. The dialogue manager tests it for intend and once
+                                    recognized as technical query, predicts the onevsrest model and uses the threat ranker to find
+                                    the optimum solution.</p>
+                                    <a href="#" class="image fit"><img src="images/c6.png" alt="" /></a>
+                                    <p><h3>VII. Recommendation</h3>
+                                    Chat bot is right now the most widely used application of NLP, finding its implementation in
+                                    customer experience improvement process. Any online website of a company can help redirect
+                                    lost customer to the right section, hence reducing the TAT time, checkout time and hence
+                                    increasing conversion rate. Effective chat bots can help navigate customer into right products,
+                                    which could be useful in giants like Amazon, Walmart. Recommendation systems can also be
+                                    
+                                    greatly benefited from this. In totality, it improves customer experience and helps in long term
+                                    relationship management.</p>
+                                    <p><h3>VIII.Conclusion</h3>
+                                    This project is a small illustration of how to implement a simple Chat Bot to a website for a
+                                    customer relationship management. There are several areas of improvement here, like
+                                    tokenizing with a software API, using further more data through cloud platforms like Big Query
+                                    and AWS, modeling with deep learning algorithms and creating further more dialogue blocks to
+                                    refine the prediction.
+                                    Code: https://github.com/mitalibharali/chatbot
                                 </p>
-                                    <h3>DATASET</h3>
-                                    <p>
-                                    I would use data from Capital IQ or Prequin where we would try to estimate NAVs, VARs and Cashflows of any given fund. I am trying to replicate the same with an open-source data on Google Stock Prices (timeseries forecasting used more for Stock prices in general) where I worked on predicting only the Open column. There are two different datasets for Train and Test and the basic summary statistics of the two are as below:
-                                    <a href="#" class="image fit"><img src="images/t1.png" alt="" /></a>
-                                    TRAIN SET TEST SET
-                                    <h3>TRADITIONAL FORECASTING</h3>
-                                    I started with traditional timeseries methods namely – ARIMA and Unobserved Components Model. A timeseries can be recognized by the following components – Trend, Seasonality, Noise and the below helper functions can help. I have used the time with np.arange for the series plotting in x axis.
-                                    <a href="#" class="image fit"><img src="images/t2.png" style="width: 500px; height: 700px" alt="" /></a>
-                                    I further divided the data into train and dev, until 1000 for train and 1000 to 1258 (end of the dataset) for dev set. Plots of the same as below:
-                                    <a href="#" class="image fit"><img src="images/t3.png" alt="" /></a>
-                                    </p>
-                                    <h3>ARIMA</h3>
-                                    <p>
-                                    Arima has three parts Auto Regression (p), Integration (d) and Moving Average (q).
-                                    An Autocorrelation plot helps me identify the right (p) value for the model. From the below graph, a (p) value between 7 – 10 looks best.
-                                    <a href="#" class="image fit"><img src="images/t4.png" style="width: 600px; height: 500px" alt="" /></a>
-                                   
-                                    Clearly from the plots above, there is an upward trend, and we need to make it stationary with differencing. With trail and error, differencing method the actual dataset at time = 1000 gives us a stationary series.
-                                    <a href="#" class="image fit"><img src="images/t5.png" style="width: 1000px; height: 500px" alt="" /></a>
-                                    A general moving average with window size of 10 was implemented as below.
-                                    <a href="#" class="image fit"><img src="images/t6.png" style="width: 800px; height: 700px" alt="" /></a>
-                                  
-                                    For the differenced stationary series, I used the Partial Autocorrelation plot to figure out the (q) value, 2 as per the below:
-                                    <a href="#" class="image fit"><img src="images/t7.png" style="width: 500px; height: 700px" alt="" /></a>
-                                    With p,q,d the model from statsmodels.tsa.arima_model is fit to give the below evaluations of AIC and BIC
-                                    </p>
-                                    <a href="#" class="image fit"><img src="images/t8.png" style="width: 800px; height: 700px" alt="" /></a>
-                                    <h3>Unobserved Component Models</h3>
-                                    <p>
-                                    For the UCM, the below graphs depict the predicted against observed values entire training dataset.
-                                    <a href="#" class="image fit"><img src="images/t9.png" alt="" /></a>
-                                    </p>
-                                    <h3>NEURAL NETWORKS</h3>
-                                    <p>
-                                    A general neural network architecture starts with the input layer of the feature vectors of ֋ training examples, hidden layers and one output layers.
-                                    <a href="#" class="image fit"><img src="images/t10.png" style="width: 500px; height: 500px" alt="" /></a>
-                                    The input X matrix must be transformed into a nxm matrix, where n is the no of features and m is the no of training examples. In the given dataset, one column is augmented into a matrix of window size 60, thus making X matrix (60x1198) .
-                                    <a href="#" class="image fit"><img src="images/t11.png" style="width: 800px; height: 700px" alt="" /></a>
-                                    
-                                    The general methodology of neural network has the following steps:
-                                    i. Initialize Parameters: W, B
-                                    ii. Loop for Number of Iterations:
-                                    a. Forward Propagation
-                                    b. Cost Function
-                                    c. Backward Propagation
-                                    iii. Update Parameters
-                                    Activation Functions – Sigmoid, ReLu and tanh can be defined as well, but for numerical regression prediction, a linear activation is best suited.
-                                    <a href="#" class="image fit"><img src="images/t12.png" style="width: 1000px; height: 800px" alt="" /></a>
-                                    For a two layer model, after defining the loop for num_iterations:
-                                    <a href="#" class="image fit"><img src="images/t13.png" style="width: 1000px; height: 800px" alt="" /></a>
-                                    
-                                    The Learning rate curve for 2-layer and 4-layer model can be seen as below, with accuracy of 64, and 56 respectively for 2500 iterations.
-                                    <a href="#" class="image fit"><img src="images/t14.png" style="width: 1000px; height: 800px" alt="" /></a>
-                                    
-                                    
-                                    <h3> Deep Learning - LSTM </h3>
-                                    The LSTM is a category of Recurrent Neural Network which has an additional memory unit that is passed on to other cells in the loop iterations. LSTMs are by far the most widely used neural nets for timeseries forecasting. I used the Keras Sequential and dense models for the layers and dropout of 0.2 for regularization. With epoch of 100, the accuracy measured in Mean squared Error is up to 0.0013. The predicted values of test against the actual test values can be visualized as below:</p>
-                                    <a href="#" class="image fit"><img src="images/t15.png" style="width: 800px; height: 700px" alt="" /></a>
-                                    <a href="#" class="image fit"><img src="images/t16.png" style="width: 800px; height: 700px" alt="" /></a>
-							</section>
-
+								
+								
 					</div>
 
 				<!-- Footer -->
