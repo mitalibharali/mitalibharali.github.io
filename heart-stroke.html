@@ -73,13 +73,13 @@
                                         spark driver and 2 worker nodes. Specification of which can be chosen as per requirement, mine as described in
                                         the picture below. Instantiate the SSH of the worker node and run Pyspark to set the version to 3.6 of python
                                         and spark version more than 2.2.
-                                        <a href="#" class="image fit"><img src="images/s2.png" style="width:500px; height:500px;" alt="" /></a>
-                                        <a href="#" class="image fit"><img src="images/s3.png" alt="" /></a>
+                                        <a href="#" class="image fit"><img src="images/s2.PNG" style="width:500px; height:500px;" alt="" /></a>
+                                        <a href="#" class="image fit"><img src="images/s3.PNG" alt="" /></a>
                                         <h4>Firewall Rule and External IP Address</h4>
                                         Over the VM instance, I set the Firewall rule as test, with port as 8888 and source IP address as 0.0.0.0, which is
                                         later used to instantiate the jupyter notebook on the web. Later, from the External IP address tab, note the IP
                                         address of the master node, which is used to open the jupyter notebook on web.
-                                        <a href="#" class="image fit"><img src="images/s4.png" alt="" /></a>
+                                        <a href="#" class="image fit"><img src="images/s4.PNG" alt="" /></a>
                                         <h4>Bucket</h4>
                                         Just like as in AWS, we
                                         must use the storage tab to
@@ -90,16 +90,16 @@
                                         rules where you can allocate
                                         pricing for every download
                                         of the files or let the clients who use the file pay for the project rather than the developer.
-                                        <a href="#" class="image fit"><img src="images/s5.png" alt="" /></a>
+                                        <a href="#" class="image fit"><img src="images/s5.PNG" alt="" /></a>
                                         Once done, you can open
                                         the Jupyter file from the
                                         web browser and start off
                                         with the project.</p>
                                         <h3>Pyspark in Jupyter</h3>
                                         Following packages were used in my project
-                                        <a href="#" class="image fit"><img src="images/s6.png" alt="" /></a>
+                                        <a href="#" class="image fit"><img src="images/s6.PNG" alt="" /></a>
                                         Instantiate a Spark Session
-                                        <a href="#" class="image fit"><img src="images/s7.png" alt="" /></a>
+                                        <a href="#" class="image fit"><img src="images/s7.PNG" alt="" /></a>
                                         Here, we can read the file that we saved in the bucket of our GCP storage using databricks.spark.
                                         Once done, I converted the spark dataframe into Pandas to support all operations.
                                         Data Preprocessing
@@ -115,11 +115,11 @@
                                         once for me is still weighted cost function in the regression.
                                         However, for this project I wanted to implement and illustrate Smote Oversampling to sample and resampled a
                                         highly imbalanced dataset, given our target variable is itself extremely imbalanced.
-                                        <a href="#" class="image fit"><img src="images/s8.png" alt="" /></a>
+                                        <a href="#" class="image fit"><img src="images/s8.PNG" alt="" /></a>
                                         <h3>Building Spark ML Pipeline</h3>
                                         I used Binarizer to build an assembler, which assembles all column together to predict the target variable and
                                         produce one vector as feature.
-                                        <a href="#" class="image fit"><img src="images/s8.png" alt="" /></a>
+                                        <a href="#" class="image fit"><img src="images/s8.PNG" alt="" /></a>
                                         <h3>Modelling</h3>
                                         I kept the modelling pretty much simple since, imputation and sampling is supposed to cancel out any
                                         anomalies of the dataset and I want to capture the true information of the treated dataset as is.
